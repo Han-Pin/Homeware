@@ -1,0 +1,21 @@
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "37D-gU-KXW"; */
+"37D-gU-KXW.text" = "Name";
+
+/* Class = "UILabel"; text = "數量"; ObjectID = "8HZ-C9-xHB"; */
+"8HZ-C9-xHB.text" = "數量";
+
+/* Class = "UILabel"; text = "數量"; ObjectID = "9HY-Hn-RrP"; */
+"9HY-Hn-RrP.text" = "數量";
+
+/* Class = "UILabel"; text = "目前數量："; ObjectID = "Pjf-5I-qgO"; */
+"Pjf-5I-qgO.text" = "目前數量：";
+
+/* Class = "UILabel"; text = "目前數量："; ObjectID = "UV3-H0-mc6"; */
+"UV3-H0-mc6.text" = "目前數量：";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "aDl-na-Dt2"; */
+"aDl-na-Dt2.text" = "Name";
+
+/* Class = "UINavigationItem"; title = "home"; ObjectID = "jHO-pe-AOC"; */
+"jHO-pe-AOC.title" = "home";
