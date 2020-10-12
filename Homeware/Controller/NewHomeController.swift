@@ -9,7 +9,14 @@
 import UIKit
 import CoreData
 
-class NewHomeController: UITableViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class NewHomeController: UITableViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+//    數字陣列選擇
+    var data = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    var a = "", b = "", c = ""
+    
+    
+    @IBOutlet var textPickerView: UIPickerView!
     
     @IBOutlet var newImageView: UIImageView!
     
@@ -24,11 +31,10 @@ class NewHomeController: UITableViewController, UITextFieldDelegate, UIImagePick
     @IBOutlet var newQuantityTextField: UITextField! {
         didSet {
             newQuantityTextField.tag = 2
-            newQuantityTextField.keyboardType = .numberPad
             newQuantityTextField.delegate = self
-            
         }
     }
+    
     
     @IBOutlet var newUseTextField: UITextField! {
         didSet {
@@ -51,15 +57,10 @@ class NewHomeController: UITableViewController, UITextFieldDelegate, UIImagePick
         
         
         
-        if newNameTextField.text == nil || Int(newQuantityTextField.text!)! > 999 || newQuantityTextField == nil {
+        if newNameTextField.text == nil || newQuantityTextField.text == nil || newQuantityTextField == nil {
 //            資料未填
             if newNameTextField.text == nil {
                 let alertController = UIAlertController(title: "問題", message: "名稱未輸入", preferredStyle: .alert)
-                let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alertController.addAction(alertAction)
-                present(alertController, animated: true, completion: nil)
-            } else if Int(newQuantityTextField.text!)! > 999 {
-                let alertController = UIAlertController(title: "問題", message: "數值超出999", preferredStyle: .alert)
                 let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alertController.addAction(alertAction)
                 present(alertController, animated: true, completion: nil)
@@ -169,6 +170,65 @@ class NewHomeController: UITableViewController, UITextFieldDelegate, UIImagePick
         
         dismiss(animated: true, completion: nil)
     }
+    
+//    數字選擇器
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 3
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if component == 0 {
+            return data.count
+        } else if component == 1 {
+            return data.count
+        } else if component == 2 {
+            return data.count
+        } else {
+            return 0
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        
+        
+        if component == 0 {
+            a = String(data[row])
+        } else if component == 1 {
+            b = String(data[row])
+        } else if component == 2 {
+            c = String(data[row])
+        }
+        if a == "0" && b == "0" {
+            newQuantityTextField.text = c
+        } else if a == "0" {
+            newQuantityTextField.text = b + c
+        } else {
+            newQuantityTextField.text = a + b + c
+        }
+        
+        
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if component == 0 {
+            return data[row]
+        } else if component == 1 {
+            return data[row]
+        } else if component == 2 {
+            return data[row]
+        } else {
+            return nil
+        }
+        
+    }
+    
+    
+//    @objc func closeKeyboard() {
+//        self.view.endEditing(true)
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -184,6 +244,14 @@ class NewHomeController: UITableViewController, UITextFieldDelegate, UIImagePick
         newNameTextField.inputAccessoryView = newToolbar
         newQuantityTextField.inputAccessoryView = newToolbar
         newUseTextField.inputAccessoryView = newToolbar
+//        選擇器設定
+        textPickerView.delegate = self
+        textPickerView.dataSource = self
+//        newQuantityTextField鍵盤更改選擇器
+        newQuantityTextField.inputView = textPickerView
+        //加上手勢按鈕
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(closeKeyboard))
+//        view.addGestureRecognizer(tap)
     }
 
     // MARK: - Table view data source
